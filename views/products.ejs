@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/add_product">Add Product</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(product => { %>
+                <tr>
+                    <td><%= product.id %></td>
+                    <td><%= product.name %></td>
+                    <td><%= product.description %></td>
+                    <td><%= product.quantity %></td>
+                    <td><%= product.price %></td>
+                    <td>
+                        <button>SELECT</button>
+                        <a href="/view_product/<%= product.id %>">View Product</a>
+                        <a href="/edit_product/<%= product.id %>">Edit Product</a>
+                        <a href="/delete_product/<%= product.id %>">Delete Product</a>
+                    </td>
+
+                </tr>
+            <% }) %>    
+        </tbody>
+    </table>
+</body>
+</html>

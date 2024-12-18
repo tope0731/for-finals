@@ -1,0 +1,96 @@
+const con = require('../db/connection')
+
+exports.getProducts = (req, res) => {
+    const sql = `SELECT * FROM products`
+    
+    con.query(sql, (err, results) => {
+        if(err){
+            console.log(err);
+            res.end()
+        }else{
+            res.render('products', {products: results})
+        }
+    })
+}
+
+exports.getViewProduct = (req, res) => {
+    const id = req.params.id
+    const sql = `SELECT * FROM products WHERE id = ?`
+
+    con.query(sql, [id], (err, results) => {
+        if(err){
+            console.log(err)
+            res.status(500).send('Error fetching product')
+
+
+        }else if(results.length === 0){
+            res.status(404).send('product not found')
+        }else{
+            res.render('view_product', {product: results[0]})
+        }
+    })
+}
+
+exports.getAddProduct = (req, res) =>{
+    res.render('add_product')
+}
+
+exports.postAddProduct = (req, res) => {
+    const name = req.body.name
+    const description = req.body.description
+    const quantity = req.body.quantity
+    const price = req.body.price
+
+    const sql = `INSERT INTO products (name, description, quantity, price) VALUES(?,?,?,?)`
+
+    con.query(sql, [name, description, quantity, price], (err) => {
+        if(err){
+            console.log(err)
+            res.end()
+        }else{
+            res.redirect('/products')
+        }
+    })
+}
+
+exports.getDeleteProduct = (req, res) => {
+    const id = req.params.id
+    const sql = `DELETE FROM products WHERE id = ?`
+
+    con.query(sql, [id], (err) => {
+        if(err) {
+            console.log(err)
+        }else{
+            res.redirect('/products')
+        }
+    })
+}
+
+exports.getEditProduct = (req, res) => {
+    const id = req.params.id
+    const sql = `SELECT * FROM products WHERE id = ?`
+
+    con.query(sql, [id], (err, results) =>{
+        if(err){
+            console.log(err)
+            res.end()
+        }else{
+            res.render('edit_product', {product: results[0]})
+        }
+    })
+}
+
+exports.postEditProduct = (req, res) => {
+    const id = req.params.id
+    const {name, description, quantity, price} = req.body
+    const sql = `UPDATE products SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?`
+
+    con.query(sql, [name, description, quantity, price], (err) => {
+        if(err){
+            console.log(err)
+            res.end()
+        }else{
+            res.redirect('/products')
+        }
+    })
+}
