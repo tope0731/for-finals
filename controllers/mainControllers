@@ -83,9 +83,11 @@ exports.getEditProduct = (req, res) => {
 exports.postEditProduct = (req, res) => {
     const id = req.params.id
     const {name, description, quantity, price} = req.body
-    const sql = `UPDATE products SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?`
+    // const sql = `UPDATE products SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?`
 
-    con.query(sql, [name, description, quantity, price], (err) => {
+    const sql = 'UPDATE products SET name = ?, description = ?, quantity = ?, price = ? WHERE id = ?';
+
+    con.query(sql, [name, description, quantity, price, id], (err) => {
         if(err){
             console.log(err)
             res.end()
