@@ -27,7 +27,7 @@
                     <td><%= product.quantity %></td>
                     <td><%= product.price %></td>
                     <td>
-                        <button>SELECT</button>
+                        <button onclick="select(`<%= product.id %>`)" >Select</button>
                         <a href="/view_product/<%= product.id %>">View Product</a>
                         <a href="/edit_product/<%= product.id %>">Edit Product</a>
                         <a href="/delete_product/<%= product.id %>">Delete Product</a>
@@ -37,5 +37,12 @@
             <% }) %>    
         </tbody>
     </table>
+
+    <div id="output"></div>
+    <!-- kukunin sa npm website -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- public/main.js -->
+    <script src="/main.js"></script>
 </body>
 </html>

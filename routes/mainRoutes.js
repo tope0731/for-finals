@@ -5,6 +5,8 @@ const mainCont = require('../controllers/mainControllers')
 router.get('/products', mainCont.getProducts)
 
 router.get('/view_product/:id', mainCont.getViewProduct)
+router.get('/view_product_axios/:id', mainCont.getViewProductAxios)
+
 
 router.get('/add_product', mainCont.getAddProduct)
 router.post('/add_product', mainCont.postAddProduct)
